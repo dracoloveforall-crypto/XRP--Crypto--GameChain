@@ -1,0 +1,8 @@
+/Hardware-Specs
+  - thermo_electric_mesh_design.pdf
+  - telluric_grounding_rod_alloy_mix.md
+/Firmware
+  - impedance_matcher.py (Balances fire heat vs. ground current)
+  - telluric_flux_monitor.cpp
+/Docs
+  - anderson_creek_geological_sync.txt
