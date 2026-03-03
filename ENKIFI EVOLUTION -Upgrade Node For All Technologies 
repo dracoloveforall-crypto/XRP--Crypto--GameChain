@@ -1,0 +1,71 @@
+""""Readme.md"""" 
+
+this novel software upgrades all internet Technologies Amplifiying and Enchaceing its Special Attribution Capabilities 
+
+
+/**
+ * ENKIFI: The Autonomous Sensing & Research Widget
+ * Components: Manus AI, NotebookLM, DeSci, XRP, StrawberryFi
+ * Hardware: Microscope, Metal Detector, Radiation, Toxic Gas
+ */
+
+import { ManusAgent } from '@meta/manus-sdk';
+import { NotebookLM } from '@google/notebook-api';
+import { XRPLedger } from '@ripple/xrpl';
+import { StrawberryFi } from '@strawberry/finance-sdk';
+import { SensorBridge } from './hardware-layer'; 
+
+const ENKIFI_WIDGET = {
+  name: "ENKIFI",
+  version: "1.0.0-2026",
+  
+  // 1. AI INTEGRATION LAYER
+  intelligence: {
+    executor: new ManusAgent({ mode: 'autonomous', subAgents: true }),
+    researcher: new NotebookLM({ deepResearch: true, sourceGrounding: 'DeSci' }),
+    
+    async processRequest(input: string) {
+      // Manus plans the task; NotebookLM gathers the data
+      const plan = await this.executor.plan(input);
+      const context = await this.researcher.synthesize(plan.objectives);
+      return this.executor.execute(plan, context);
+    }
+  },
+
+  // 2. SENSOR & HARDWARE LAYER (The "California Tech" Stack)
+  sensors: {
+    metalDetector: SensorBridge.connect('magnetometer', { sensitivity: 'high' }),
+    microscope: SensorBridge.connect('camera_macro_mode', { ai_upscale: '4k' }),
+    radiation: SensorBridge.connect('external_dosimeter_api'), // Connects to wearable or peripheral
+    gasDetector: SensorBridge.connect('voc_sensor_ble'),
+
+    async scanEnvironment() {
+      const data = await Promise.all([
+        this.metalDetector.read(),
+        this.radiation.read(),
+        this.gasDetector.read()
+      ]);
+      
+      // If toxic gas or radiation exceeds safety levels
+      if (data[2].status === 'DANGER') {
+        ENKIFI_WIDGET.security.triggerAlert(data[2].msg);
+      }
+      return data;
+    }
+  },
+
+  // 3. FINANCIAL & SCIENTIFIC LAYER
+  web3: {
+    ledger: new XRPLedger({ network: 'mainnet' }),
+    yield: new StrawberryFi({ strategy: 'auto-rebalance' }),
+    
+    async verifyDiscovery(data: any) {
+      // Use DeSci protocols to timestamp sensor data on-chain
+      const tx = await this.ledger.submitProof(data);
+      await this.yield.stake(tx.fee_rewards); // Reinvest fees into StrawberryFi
+      return `Discovery anchored on-chain: ${tx.hash}`;
+    }
+  }
+};
+
+export default ENKIFI_WIDGET;
