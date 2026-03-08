@@ -1,0 +1,67 @@
+===Readme.md===
+
+a New Type Of Advanced Hybrid Artificial Intelligence Powered By StrawberryFi Utility Token 
+
+import os
+from typing import TypedDict, Annotated, List, Union
+from langgraph.graph import StateGraph, END
+
+# --- 1. SPECIALIST AGENT MAPPING ---
+# Define the specialized roles for each 'merged' AI
+class AgentState(TypedDict):
+    task: str
+    context: str
+    history: List[str]
+    current_agent: str
+    result: str
+
+def strawberry_fi_bot(state: AgentState):
+    """Handles Utility Tokens, Financial Logic, and Tron Network."""
+    return {"result": f"StrawberryFi processed: {state['task']} on Tron Network."}
+
+def dracoxus_xrai_bot(state: AgentState):
+    """The Core 'XRAI' reasoning engine (Internal Logic)."""
+    return {"result": f"Dracoxus-XRAI analyzing: {state['task']}"}
+
+def global_ai_router(state: AgentState):
+    """Routes to US-owned AI (ChatGPT/Siri) or International (DeepSeek)."""
+    task = state['task'].lower()
+    if "token" in task or "tron" in task:
+        return "strawberry_fi"
+    if "deep" in task or "deepseek" in task:
+        return "deepseek_module"
+    return "general_llm"
+
+# --- 2. INTEGRATION LAYER ---
+def call_deepseek(state: AgentState):
+    # Placeholder for DeepSeek API Call
+    return {"result": "DeepSeek response generated."}
+
+def call_openai_claude(state: AgentState):
+    # Logic to switch between ChatGPT, Claude, and California-based bots
+    return {"result": "US-Based AI (OpenAI/Anthropic) response generated."}
+
+# --- 3. BUILDING THE MERGED GRAPH ---
+workflow = StateGraph(AgentState)
+
+# Add Nodes
+workflow.add_node("strawberry_fi", strawberry_fi_bot)
+workflow.add_node("dracoxus_xrai", dracoxus_xrai_bot)
+workflow.add_node("deepseek_module", call_deepseek)
+workflow.add_node("general_llm", call_openai_claude)
+
+# Define the Flow
+workflow.set_entry_point("dracoxus_xrai")
+workflow.add_edge("dracoxus_xrai", "general_llm")
+workflow.add_edge("general_llm", END)
+
+# Compile the unified bot
+strawberryfi_xrai_app = workflow.compile()
+
+# --- 4. EXECUTION ---
+if __name__ == "__main__":
+    print("--- StrawberryFi-XRAI Unified Bot Online ---")
+    user_input = "Analyze the StrawberryFi utility token and run a DeepSeek reasoning check."
+    inputs = {"task": user_input, "history": []}
+    for output in strawberryfi_xrai_app.stream(inputs):
+        print(output)
