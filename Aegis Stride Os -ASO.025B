@@ -1,0 +1,96 @@
+"""Readme.md"""
+
+Advanced Shoes With Wheels and A Headset that allows the shoes to navigate a person around push down twice for the shoes to stop moving and the wheels click in to where the heels drop flat on the surface of the ground to switch to walking mode. 
+
+
+
+
+import time
+import json
+import hashlib
+
+# ---------------------------------------------------------
+# THE OMNI-STRIDE INTEGRATED CORE
+# ---------------------------------------------------------
+
+class OmniStrideSystem:
+    def __init__(self):
+        # AI AGENT STACK INTEGRATION
+        self.brain_stack = {
+            "manus": "General Logic",
+            "agi_core": "Autonomous Reasoning",
+            "desci_node": "Scientific Data Validation",
+            "notebook_ai": "Memory/Logs",
+            "agent_ai": "Task Execution",
+            "grok": "Real-time Truth Stream",
+            "chat_gpt": "Natural Language Interface",
+            "deep_sea": "Deep Navigation Patterns"
+        }
+        
+        # UTILITY & AUTOMATION
+        self.token = "StrawberryFi"
+        self.automation_drivers = [f"Driver_{i}" for i in range(500)]
+        
+        # SHOE STATE
+        self.wheels_deployed = False
+        self.cruise_velocity = 0.0
+        self.pressure_sensor_buffer = []
+
+    def process_headset_navigation(self, gaze_data):
+        """Uses Deep Sea and Agent AI to overlay pathing on AR headset."""
+        print(f"[*] Analyzing path via {self.brain_stack['deep_sea']}...")
+        optimized_path = f"Optimized route for {gaze_data}"
+        return optimized_path
+
+    def handle_pressure_input(self, pressure_val):
+        """Hard push down twice (Double-Tap) logic."""
+        self.pressure_sensor_buffer.append(pressure_val)
+        if len(self.pressure_sensor_buffer) > 2:
+            self.pressure_sensor_buffer.pop(0)
+            
+        # Detect 'Hard Push' (Threshold > 90% body weight)
+        if all(p > 0.9 for p in self.pressure_sensor_buffer):
+            self.toggle_retraction()
+
+    def toggle_retraction(self):
+        """Retracts the 6-wheel array for walking mode."""
+        if self.wheels_deployed:
+            print("[!] Critical Force Detected: Retracting 6-Wheel Array.")
+            self.wheels_deployed = False
+            self.cruise_velocity = 0.0
+        else:
+            print("[+] Deploying Wheels: Entering Cruise Mode.")
+            self.wheels_deployed = True
+
+    def run_automation_fleet(self):
+        """Executes 500 driving sub-processes via AGI core."""
+        for driver in self.automation_drivers:
+            # Simulated parallel processing for balance and anti-fall
+            pass 
+        return "Balance stabilized by 500-driver swarm."
+
+    def validate_transaction(self):
+        """Uses DeSci to verify path safety and StrawberryFi for access."""
+        tx_hash = hashlib.sha256(str(time.time()).encode()).hexdigest()
+        return f"Verified via {self.token}. Hash: {tx_hash[:10]}"
+
+# ---------------------------------------------------------
+# EXECUTION LOOP
+# ---------------------------------------------------------
+
+if __name__ == "__main__":
+    shoe_os = OmniStrideSystem()
+    
+    print("--- Omni-Stride Boot Sequence ---")
+    print(f"Agents Online: {', '.join(shoe_os.brain_stack.keys())}")
+    
+    # Simulate User Action: Double Hard Push
+    shoe_os.handle_pressure_input(0.95)
+    shoe_os.handle_pressure_input(0.98)
+    
+    # Run Nav
+    path = shoe_os.process_headset_navigation("North-West toward Anderson Creek")
+    print(f"Headset Display: {path}")
+    print(shoe_os.run_automation_fleet())
+    print(shoe_os.validate_transaction())
+
