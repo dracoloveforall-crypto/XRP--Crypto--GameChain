@@ -1,0 +1,11 @@
+# 5. Launch the Bot
+echo "------------------------------------------------"
+echo "[*] Launching Godlawbot..."
+echo "------------------------------------------------"
+
+python3 $MAIN_SCRIPT "$@"
+
+# 6. Clean Exit
+deactivate
+
+
