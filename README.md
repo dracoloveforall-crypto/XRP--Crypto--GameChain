@@ -10,6 +10,11 @@ To maintain the integrity of the **StrawberryFi Data Protector**, the following 
 
 
 
+![Security Audit](https://github.com/YOUR_GITHUB_USERNAME/YOUR_REPO_NAME/actions/workflows/strawberryfi-security.yml/badge.svg)
+
+
+
+
 
 
 
