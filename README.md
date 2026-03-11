@@ -1,3 +1,19 @@
+
+
+## 🔒 Repository Protection Policy
+
+To maintain the integrity of the **StrawberryFi Data Protector**, the following branch rules are enforced:
+
+* **No Direct Pushes:** All updates must originate from a feature branch.
+* **PR Requirement:** Minimum of 1 authorized review required for `main` branch merges.
+* **Linear History:** We require a clean commit history to track protection audits.
+
+
+
+
+
+
+
 <!-- fallback_CryptoChain_20260207084700_19207 -->
 
 # CryptoChain: Autonomous ledger platform utilizing intelligent consensus protocols for secure identity verification and scalable, resilient node synchronization Hub Implementation
