@@ -64,7 +64,7 @@ jobs:
           body: |
             The StrawberryFi Security Audit has failed on the ${{ github.ref_name }} branch. 
             Check the logs immediately: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-          to: your-email@example.com
+          to: dracoloveforall@gmail.com
 
 
  
