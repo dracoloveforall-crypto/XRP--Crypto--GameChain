@@ -1,0 +1,41 @@
+name: "Universal Master Monitor & AI Fixer"
+
+on:
+  schedule:
+    - cron: '0 */6 * * *' # Checks everything every 6 hours
+  workflow_dispatch: # Allows you to "Action" all repos manually
+
+jobs:
+  check-repos:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # Add your major repository names here
+        repo: ['hii-core', 'strawberry-fi', 'legal-tech-ca', 'legal-tech-dc', 'sharky-gang-intel']
+    
+    steps:
+      - name: Check Health of ${{ matrix.repo }}
+        id: health_check
+        run: |
+          # Uses GitHub CLI to check the status of the last run in that repo
+          STATUS=$(gh run list --repo ${{ github.repository_owner }}/${{ matrix.repo }} --limit 1 --json conclusion -q '.[0].conclusion')
+          echo "Repo status is: $STATUS"
+          echo "status=$STATUS" >> $GITHUB_OUTPUT
+        env:
+          GH_TOKEN: ${{ secrets.PAT_TOKEN }}
+
+      - name: Trigger AI Self-Heal
+        if: steps.health_check.outputs.status == 'failure'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.PAT_TOKEN }}
+          script: |
+            console.log("Failure detected in ${{ matrix.repo }}. Activating AI agents...");
+            // This triggers a 'fix-it' workflow in the target repository
+            await github.rest.repos.createDispatchEvent({
+              owner: context.repo.owner,
+              repo: '${{ matrix.repo }}',
+              event_type: 'ai_fix_request',
+              client_payload: { reason: "Automated health check failed" }
+            });
