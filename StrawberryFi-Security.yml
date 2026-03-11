@@ -1,0 +1,52 @@
+====Readme.md=====
+
+A Specialized Protocol For The Securtiy And Data Protection And Completed Review For StrawberryFi utility token. 
+
+
+
+name: StrawberryFi Security Audit
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  schedule:
+    - cron: '0 2 * * *' # Runs daily at 2 AM to check for new vulnerabilities
+
+jobs:
+  security-scan:
+    name: 🔒 Run Security Scanners
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      contents: read
+
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Full history required for secret scanning
+
+      - name: 🔑 Gitleaks Secret Scan
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🧬 CodeQL Analysis (Deep Scan)
+        uses: github/codeql-action/init@v3
+        with:
+          languages: python, javascript # Add other languages you use here
+
+      - name: 🔍 Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+
+      - name: 📦 Dependency Audit
+        run: |
+          # For Python-based StrawberryFi logic
+          if [ -f requirements.txt ]; then
+            pip install pip-audit
+            pip-audit
+          fi
+
+ 
