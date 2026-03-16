@@ -1,0 +1,63 @@
+====Readme.md====
+
+a Code That enhances the resolve of issues within a code
+
+
+import os
+import subprocess
+import openai
+
+# --- SP1 AUTHOR CREDENTIALS ---
+# OWNER: Deontea Keith McNeill
+# DOB: September 15, 1991
+# PROJECT: Universal Master Monitor (DeepSeek Edition)
+
+DEEPSEEK_API_KEY = "your_deepseek_api_key_here"
+GITHUB_TOKEN = "your_github_token_here"
+REPO_NAME = "strawberry-fi"
+
+client = openai.OpenAI(api_key=DEEPSEEK_API_KEY, base_url="https://api.deepseek.com")
+
+class SP1DeepSeekAgent:
+    def __init__(self, repo_path):
+        self.repo_path = repo_path
+        self.branch_name = "sp1-deepseek-autofix"
+        self.author_name = "Deontea Keith McNeill"
+
+    def detect_and_reason(self):
+        print(f"--- SP1 Scanning {self.repo_path} | Lead: {self.author_name} ---")
+        result = subprocess.run(['flake8', self.repo_path], capture_output=True, text=True)
+        return result.stdout
+
+    def generate_patch(self, logs):
+        response = client.chat.completions.create(
+            model="deepseek-reasoner",
+            messages=[
+                {"role": "system", "content": f"You are the SP1 Universal Monitor developed by {self.author_name}. Provide only corrected code blocks."},
+                {"role": "user", "content": f"Fix these issues in {self.repo_path}:\n{logs}"}
+            ]
+        )
+        return response.choices[0].message.content
+
+    def commit_to_github(self, patch_notes):
+        try:
+            # Setting local git config for this session
+            subprocess.run(["git", "config", "user.name", self.author_name], cwd=self.repo_path)
+            subprocess.run(["git", "checkout", "-b", self.branch_name], cwd=self.repo_path)
+            subprocess.run(["git", "add", "."], cwd=self.repo_path)
+            commit_msg = f"SP1/DeepSeek Auto-Fix by {self.author_name} - {patch_notes[:30]}"
+            subprocess.run(["git", "commit", "-m", commit_msg], cwd=self.repo_path)
+            subprocess.run(["git", "push", "origin", self.branch_name], cwd=self.repo_path)
+            print(f"Push successful. Authored by: {self.author_name}")
+        except Exception as e:
+            print(f"Git Error: {e}")
+
+# Execution
+agent = SP1DeepSeekAgent(f"./{REPO_NAME}")
+logs = agent.detect_and_reason()
+
+if logs:
+    patch = agent.generate_patch(logs)
+    agent.commit_to_github(patch)
+else:
+    print("All systems clear.")
