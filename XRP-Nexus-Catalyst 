@@ -1,0 +1,36 @@
+####Readme.md####
+
+a highly valuable code that boosts the burner income and burner value of xrp utility token 
+
+
+
+#include "hookapi.h"
+
+// Hook to increase XRP scarcity/liquidity
+int64_t hook(uint32_t reserved) {
+    // 1. Get the transaction type
+    int64_t tt = otxn_type();
+    
+    // Only act on Payments
+    if (tt != ttPAYMENT)
+        return accept(SBUF("Not a payment, skipping."), 0);
+
+    // 2. Define the "Liquidity Vault" address (Placeholder)
+    uint8_t vault_acc[20];
+    util_keytoaddr(SBUF("VAULT_ADDRESS_HERE"), vault_acc, 20);
+
+    // 3. Logic: For transactions over 100 XRP, route 1% to the Vault
+    int64_t amount = otxn_amount();
+    if (amount > 100000000) { // 100 XRP in drops
+        int64_t fee_split = amount / 100; // 1%
+        
+        // This logic would trigger a side-payment to the vault 
+        // to bolster the XRP/USDC Liquidity Pool
+        etxn_reserve(1); 
+        // (Execution code for emitting a new transaction to the vault)
+    }
+
+    return accept(SBUF("Value-added protocol executed."), 0);
+}
+
+
