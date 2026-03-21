@@ -1,0 +1,14 @@
+####Readme.md####
+
+a software that Integrates Mining and Merging Directly into The StrawberryFi utility Token and Ripple XRP utility Token 
+
+
+# Conceptual Factory Implementation (Python/Node.js backend)
+class EngineFactory:
+    def create_instance(self, engine_type, params):
+        if engine_type == "mining":
+            return MiningSoftware(params)
+        elif engine_type == "merger":
+            return MergerSoftware(params)
+        elif engine_type == "mining_merger":
+            return MiningMergerSoftware(params)
