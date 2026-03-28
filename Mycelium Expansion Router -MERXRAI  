@@ -1,0 +1,41 @@
+####Readme.md####
+
+a code that increases the health and Expanison of all types of fungi for earth's survival 
+
+
+import numpy as np
+
+class MyceliumDracoXR:
+    """
+    Merges 'Strawberry Pie' (Reasoning) and 'Draco XR' (Spatial Awareness)
+    to optimize global fungal distribution.
+    """
+    def __init__(self, grid_size=(100, 100)):
+        # Initialize environmental grid: [Moisture, Temp, Substrate]
+        self.world = np.random.rand(3, *grid_size)
+        self.mycelium_density = np.zeros(grid_size)
+        
+    def strawberry_logic(self):
+        """Reasoning layer: Processes 'Strawberry' deep-planning goals."""
+        # High moisture (>0.6) and Temp (20-30C normalized) are priorities
+        optimal_zones = (self.world[0] > 0.6) & (self.world[1] > 0.4)
+        return optimal_zones
+
+    def draco_xr_spatial(self, zones):
+        """Spatial layer: Draco XR mapping for real-world placement."""
+        # Simulate XR 'anchor points' for spore dispersal
+        anchors = np.where(zones, 1, 0)
+        return anchors * self.world[2] # Weight by substrate quality
+
+    def spread_fungi(self):
+        """Executes the merge and simulates growth."""
+        logic_map = self.strawberry_logic()
+        spatial_map = self.draco_xr_spatial(logic_map)
+        
+        # Growth simulation: Mycelium expands to adjacent spatial anchors
+        self.mycelium_density += spatial_map * 0.1
+        print(f"Mycelium successfully spread to {np.count_nonzero(spatial_map)} new coordinates.")
+
+# Initialize the global mycelium network
+earth_network = MyceliumDracoXR()
+earth_network.spread_fungi()
