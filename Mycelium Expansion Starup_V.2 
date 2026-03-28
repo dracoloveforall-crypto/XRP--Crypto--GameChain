@@ -1,0 +1,25 @@
+====Readme.md====
+
+a visual code that shows the diagram of Mycelium Growth Expansion project 
+
+
+
+import plotly.graph_objects as go
+import numpy as np
+
+# Generate 3D coordinates for Earth-based mycelium nodes
+x, y, z = np.random.multivariate_normal([0, 0, 0], np.eye(3), 500).T
+
+fig = go.Figure(data=[go.Scatter3d(
+    x=x, y=y, z=z,
+    mode='markers',
+    marker=dict(
+        size=4,
+        color=z, # Color based on survival depth
+        colorscale='Viridis', # "Strawberry Pie" logic coloring
+        opacity=0.8
+    )
+)])
+
+fig.update_layout(title='Draco XR: Global Mycelium Network')
+fig.show()
