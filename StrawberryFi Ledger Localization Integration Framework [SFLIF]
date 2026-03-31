@@ -1,0 +1,19 @@
+$$$$$Readme.md$$$$$
+ 
+
+
+A Integrational Franework Push Tool that  Allows StrawberryFi Ledger to easily move through financial Digital Ecosystems . 
+
+
+{
+  "ledger_name": "StrawberryFi_Mainnet",
+  "protocol_version": "1.0.4-cor",
+  "bridge_mode": "Aether_Enabled",
+  "security_layer": "Sovereign_Aegis_SAP",
+  "nodes": [
+    "wss://xrplcluster.com",
+    "wss://s2.ripple.com"
+  ]
+}
+
+
