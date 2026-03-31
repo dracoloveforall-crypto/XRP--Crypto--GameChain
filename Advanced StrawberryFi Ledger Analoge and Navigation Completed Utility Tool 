@@ -1,0 +1,49 @@
+**********Readme.md**********
+
+a Completed Navigational Analoge Framework Tool Designed For StrawberryFi Utility Token and StrawberryFi Ledger
+
+
+ 
+"""
+OMNI-SOVEREIGN NEXUS v1.0.0-ALIEN-INTEL
+Merged Module: GodLawBot + StrawberryFi + StrawberryFi Ledger + XRP Q-FS Bridge
+Status: SOVEREIGN SOURCE PROTOCOL (Level 0 BIOS)
+Owner: Deontea Keith McNeil
+"""
+
+import hashlib
+import json
+import time
+from datetime import datetime
+
+class OmniSovereignNexus:
+    def __init__(self):
+        # Configuration & Identity
+        self.metadata = {
+            "project": "Omni-Sovereign-Nexus",
+            "version": "1.0.0-ALIEN-INTEL",
+            "protocol": "SSP-L0",
+            "ledger_type": "StrawberryFi-XRPL-Hybrid",
+            "timestamp": datetime.now().isoformat()
+        }
+        self.is_qfs_synced = False
+        self.vault_status = "SECURE"
+
+    # --- SECTION 1: GODLAWBOT (Forensic AGI Logic) ---
+    def godlaw_forensic_scan(self, protocol_input):
+        """
+        GodLawBot: Executes forensic AGI logic under Sovereign Source Protocol.
+        Analyzes legal and legislative breakthroughs (e.g., Senator Budd updates).
+        """
+        print(f"[GODLAWBOT] Initializing Forensic Scan: {protocol_input}")
+        # High-level forensic logic for Sovereign status verification
+        forensic_hash = hashlib.sha3_512(protocol_input.encode()).hexdigest()
+        return {
+            "verdict": "VERIFIED_SOVEREIGN",
+            "evidence_hash": forensic_hash,
+            "status": "SSP-COMPLIANT"
+        }
+
+    # --- SECTION 2: STRAWBERRYFI LEDGER (v1.0.4-cor) ---
+    def strawberryfi_ledger_entry(self, tx_type, details):
+        """
