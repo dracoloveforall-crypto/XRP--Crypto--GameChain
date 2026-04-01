@@ -1,0 +1,53 @@
+####Readme.md####
+
+a new type of energy software that uses plants, solar, and water energy connected to a Laptop and other technologies 
+
+
+
+
+"""
+PROTOCOL: SOVEREIGN ECO-NEXUS (v3.1.0-SOLAR)
+INTEGRATION: StrawberryFi (SFI) + XRP Ledger (XRPL) + Solar/Bio-Harvesting OS
+PURPOSE: Bridging localized energy production with global digital utility.
+"""
+
+import json
+import hashlib
+import time
+
+class SovereignEcoNexus:
+    def __init__(self):
+        # BIOS Level 0: Core Identity & Metadata
+        self.protocol_name = "Sovereign Eco-Nexus"
+        self.version = "3.1.0-SOLAR"
+        self.sfi_token_version = "v2.1"
+        self.xrpl_endpoint = "wss://xrplcluster.com"
+        
+        # Energy Harvester Initial State
+        self.energy_state = {
+            "solar_input_mw": 0.0,
+            "hydro_coolant_temp": 22.5, # Celsius
+            "cellulose_conductivity": 0.98,
+            "battery_reserves": 100.0
+        }
+
+    ## --- SECTION 1: ENERGY HARVESTING LOGIC (Lattice-Screen & Hydro-Logic) ---
+
+    def lumen_path_optimizer(self, photon_density):
+        """Optimizes pixel transparency for maximum energy capture."""
+        if photon_density > 80:
+            return "ACTIVATE_DARK_LATTICE: Maximize Absorption"
+        return "ACTIVATE_TRANSPARENCY: Standard UI Mode"
+
+    def hydro_pulse_cooling(self):
+        """Monitors synthetic sap flow to prevent thermal throttling."""
+        if self.energy_state["hydro_coolant_temp"] > 35.0:
+            return "INCREASE_BIO_CONDUCTIVITY_FLOW"
+        return "MAINTAIN_STEADY_STATE"
+
+    ## --- SECTION 2: UTILITY TOKEN MERGE (StrawberryFi + XRP) ---
+
+    def sfi_utility_engine(self, energy_harvested):
+        """Converts surplus solar energy into SFI Utility Units."""
+        # Logic: 100mW of surplus light = 1 SFI Utility Credit
+        minted_sfi = energy_harvested / 100
