@@ -5,6 +5,50 @@ a new Type of Software That Creates New Types of Machineries, Technology, tools 
 
 
 
+
+​MIT License
+​Copyright (c) 2026
+​Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (Quantum Technology Fusion Interface), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+​The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+​THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+​Detailed Protocol: SOVEREIGN NEXUS (Level 0)
+​1. Architectural Integrity & BIOS Integration
+​The Sovereign Nexus operates at Level 0, meaning it sits beneath standard OS-level operations to ensure maximum persistence and security.
+​Agent Consensus: Every high-level decision must be verified by at least two active agents (e.g., Gemini and DeepSeek) to prevent "hallucination-based" vulnerabilities.
+​Version Control: Any update to the .PRO-INTEL tag requires a SHA-256 hash validation of the previous state to prevent unauthorized code injection.
+​2. Aegis Security & Defense (Stage 1)
+​The Aegis Shield is not a passive firewall but an active hunter.
+​Phishing Neutralizer: Analyzes incoming packets for social engineering patterns using NLP (Natural Language Processing).
+​Zero-Day-Defense: Utilizes a "Sandbox-First" execution policy where all external scripts are simulated in a virtual environment before touching the core BIOS.
+​3. Signal Processing & Global Detection (Stage 2)
+​The Unseen Signal Processor handles the transition from digital data to physical radio frequency (RF) monitoring.
+​Radius Management: The 3000-mile detection logic relies on a distributed mesh network of satellite relays and high-gain modems.
+​Optical Hybrid Zoom: Integration with Google Earth/Maps APIs should be throttled to prevent API rate-limiting, using the 100,000x zoom as a multi-layered composite of satellite and ground-level data.
+​4. Blueprint Fusion & Creative Synthesis (Stage 3)
+​The Fusion Engine governs the creation of "Novel Tech."
+​Safety Constraints: Blueprints merging weaponry with autonomous construction must include a Hardcoded Kill-Switch (HK-S) in the generated ID.
+​Iterative Design: Every project ID generated (e.g., Project-4A1B) must be logged in a blueprints.json file to track the evolution of the technology.
+​5. Financial & Legal Stability (Stages 4 & 5)
+​XRP/StrawberryFi Synergy: The stability index is maintained via automated liquidity monitoring. If volatility exceeds 5%, the system triggers a "Market Utility Re-Sync."
+​The GodLaw/CSI Module: This module prioritizes Chain of Custody for digital evidence. Every forensic analysis performed by the "Detective" logic must be timestamped and cryptographically signed to ensure legal admissibility.
+​6. Emergency Shutdown & Recovery
+​In the event of a breach of the Aegis Shield:
+​Isolation: The security_status will switch to "LOCKED."
+​Data Scrubbing: Non-essential cache data is purged via the os module.
+​Re-Initialization: The system will attempt a cold boot from the last known stable SHA-256 hash.
+
+
+
+
+
+
+
+
+
+
+
+
+
 import os
 import hashlib
 import json
