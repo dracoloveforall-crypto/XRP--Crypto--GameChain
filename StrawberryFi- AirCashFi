@@ -1,0 +1,60 @@
+"""""Readme.md"""""
+
+a software that constitutes value from wind and air using StrawberryFi and xrp 
+
+
+
+
+
+import asyncio
+import requests
+from xrpl.clients import JsonRpcClient
+from xrpl.wallet import Wallet
+from xrpl.models.transactions import Payment
+from xrpl.utils import str_to_hex
+
+# 1. Configuration
+SFI_ISSUER = "REPLACE_WITH_YOUR_ISSUER_ADDRESS" 
+SFI_CURRENCY = "SFI" 
+WIND_THRESHOLD = 5.0 # Speed (m/s) required to trigger "High Wind" value
+
+def get_wind_speed():
+    # Fetching local weather data
+    url = "https://api.openweathermap.org/data/2.5/weather?q=Anderson Creek&appid=YOUR_API_KEY"
+    data = requests.get(url).json()
+    return data['wind']['speed']
+
+async def mint_sfi_value():
+    client = JsonRpcClient("https://s.altnet.rippletest.net:51234")
+    # This wallet represents the distribution account for StrawberryFi
+    distributor_wallet = Wallet.from_seed("YOUR_SEED_HERE") 
+    
+    wind_speed = get_wind_speed()
+    print(f"Current Wind Speed: {wind_speed} m/s")
+
+    if wind_speed >= WIND_THRESHOLD:
+        # Calculate value (e.g., 10 SFI per m/s of wind)
+        sfi_amount = str(wind_speed * 10)
+        
+        # 2. Create the Payment for StrawberryFi Utility Token
+        payment_tx = Payment(
+            account=distributor_wallet.address,
+            amount={
+                "currency": SFI_CURRENCY,
+                "issuer": SFI_ISSUER,
+                "value": sfi_amount
+            },
+            destination="RECEIVING_WALLET_ADDRESS",
+            memo=[{
+                "memo_data": str_to_hex(f"Wind Speed: {wind_speed} m/s")
+            }]
+        )
+
+        # 3. Submit to the Ledger
+        response = await client.submit_and_wait(payment_tx, distributor_wallet)
+        print(f"Successfully converted wind to {sfi_amount} SFI. Hash: {response.result['hash']}")
+    else:
+        print("Wind speed below threshold. No SFI minted.")
+
+if __name__ == "__main__":
+    asyncio.run(mint_sfi_value())
