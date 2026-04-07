@@ -1,0 +1,59 @@
+####Readme.md####
+
+StrawberryFi Erc-20 Router 
+
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/access/AccessControl.sol";
+import "@openzeppelin/contracts/security/Pausable.sol";
+
+contract StrawberryFi is ERC20, AccessControl, Pausable {
+
+    bytes32 public constant ADMIN_ROLE = keccak256("ADMIN_ROLE");
+
+    uint256 public maxTxAmount;
+    uint256 public feePercent = 2;
+
+    mapping(address => bool) public isWhitelisted;
+
+    constructor(uint256 initialSupply) ERC20("StrawberryFi", "STFI") {
+        _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
+        _grantRole(ADMIN_ROLE, msg.sender);
+
+        _mint(msg.sender, initialSupply * 10 ** decimals());
+
+        maxTxAmount = initialSupply * 10 ** decimals() / 100; // 1% max tx
+    }
+
+    function setFee(uint256 _fee) external onlyRole(ADMIN_ROLE) {
+        require(_fee <= 10, "Too high");
+        feePercent = _fee;
+    }
+
+    function whitelist(address user, bool status) external onlyRole(ADMIN_ROLE) {
+        isWhitelisted[user] = status;
+    }
+
+    function pause() external onlyRole(ADMIN_ROLE) {
+        _pause();
+    }
+
+    function unpause() external onlyRole(ADMIN_ROLE) {
+        _unpause();
+    }
+
+    function _transfer(address sender, address recipient, uint256 amount)
+        internal override whenNotPaused
+    {
+        require(amount <= maxTxAmount || isWhitelisted[sender], "Exceeds max tx");
+
+        uint256 fee = (amount * feePercent) / 100;
+        uint256 amountAfterFee = amount - fee;
+
+        super._transfer(sender, address(this), fee); // collect fee
+        super._transfer(sender, recipient, amountAfterFee);
+    }
+}
