@@ -1,0 +1,125 @@
+####Readme.md 
+
+
+StrawberryFi utility token upgrade boosters
+
+
+class StrawberryAgent {
+  constructor(name) {
+    this.name = name;
+  }
+
+  analyze(tx) {
+    if (tx.amount > 100000) {
+      return `${this.name}: High value transaction detected`;
+    }
+    return `${this.name}: Normal activity`;
+  }
+
+  act(decision) {
+    if (decision === "BLOCK_TRANSACTION") {
+      return `${this.name}: Blocking suspicious activity`;
+    }
+    return `${this.name}: Monitoring system`;
+  }
+}
+
+module.exports = StrawberryAgent;
+
+
+
+
+
+const axios = require('axios');
+
+async function sendDeviceData(data) {
+  try {
+    const res = await axios.post('http://localhost:3000/transaction', data);
+    console.log("Device sent data:", res.data);
+  } catch (err) {
+    console.error("Device error:", err.message);
+  }
+}
+
+module.exports = { sendDeviceData };
+
+
+
+
+
+
+
+const StrawberryAgent = require('./agent');
+
+const agents = [
+  new StrawberryAgent("Guardian-1"),
+  new StrawberryAgent("Watcher-2"),
+  new StrawberryAgent("Analyzer-3")
+];
+
+function runSwarm(tx, decision) {
+  return agents.map(agent => ({
+    analysis: agent.analyze(tx),
+    action: agent.act(decision)
+  }));
+}
+
+module.exports = { runSwarm };
+
+
+
+
+
+const { runSwarm } = require('./ai/swarm');
+
+app.post('/transaction', (req, res) => {
+  const tx = req.body;
+
+  const risk = calculateRisk(tx, []);
+  const decision = makeDecision(risk);
+
+  const swarmOutput = runSwarm(tx, decision);
+
+  if (decision === "BLOCK_TRANSACTION") {
+    return res.status(403).json({
+      error: "Blocked by AI swarm",
+      swarmOutput
+    });
+  }
+
+  const block = addTransaction(tx);
+
+  res.json({
+    message: "🍓 Transaction processed",
+    swarm: swarmOutput,
+    block
+  });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const axios = require('axios');
+
+async function getSpaceData() {
+  const res = await axios.get('https://api.le-systeme-solaire.net/rest/bodies/');
+  return res.data;
+}
+
+module.exports = { getSpaceData };
+
+
+
+
+
+
