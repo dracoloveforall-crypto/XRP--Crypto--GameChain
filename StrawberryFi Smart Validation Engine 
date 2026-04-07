@@ -1,0 +1,22 @@
+####Readme.md####
+
+Fraud-Like Behavior Prevention System 
+
+
+
+function validateTransaction(tx) {
+  if (!tx.from || !tx.to) return { valid: false, reason: "Missing users" };
+  if (tx.amount <= 0) return { valid: false, reason: "Invalid amount" };
+
+  if (tx.from === tx.to) {
+    return { valid: false, reason: "Self-transfer blocked" };
+  }
+
+  if (tx.amount > 1000000) {
+    return { valid: false, reason: "Suspicious large transfer" };
+  }
+
+  return { valid: true };
+}
+
+module.exports = { validateTransaction };
