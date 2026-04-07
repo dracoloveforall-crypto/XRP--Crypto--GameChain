@@ -1,0 +1,45 @@
+####Readme.md####
+
+advanced StrawberryFi Ledger Engine 
+
+
+const crypto = require('crypto');
+
+let chain = [];
+
+function createHash(data) {
+  return crypto
+    .createHash('sha256')
+    .update(JSON.stringify(data))
+    .digest('hex');
+}
+
+function createBlock(transaction, previousHash = '') {
+  const block = {
+    index: chain.length,
+    timestamp: new Date(),
+    transaction,
+    previousHash,
+  };
+
+  block.hash = createHash(block);
+  return block;
+}
+
+function addTransaction(tx) {
+  const previousHash = chain.length ? chain[chain.length - 1].hash : 'GENESIS';
+
+  const block = createBlock(tx, previousHash);
+  chain.push(block);
+
+  return block;
+}
+
+function getChain() {
+  return chain;
+}
+
+module.exports = {
+  addTransaction,
+  getChain
+};
