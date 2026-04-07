@@ -1,0 +1,9 @@
+####Readme.md####
+
+Authorization for other Websites to use StrawberryFi utility token and StrawberryFi Ledger 
+
+
+<script src="https://yourdomain.com/strawberryfi.js"></script>
+<script>
+  StrawberryFi.init();
+</script>
