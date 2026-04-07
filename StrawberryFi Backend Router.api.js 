@@ -1,0 +1,25 @@
+####Readme.md####
+
+Backend Routing System For StrawberryFi utility token 
+
+
+const express = require('express');
+const router = express.Router();
+const { addTransaction, getLedger } = require('../ledger');
+
+router.get('/ledger', (req, res) => {
+  res.json(getLedger());
+});
+
+router.post('/transaction', (req, res) => {
+  const { user, action, amount } = req.body;
+
+  const tx = addTransaction(user, action, amount);
+  res.json(tx);
+});
+
+router.get('/status', (req, res) => {
+  res.json({ message: "🍓 StrawberryFi Active" });
+});
+
+module.exports = router;
