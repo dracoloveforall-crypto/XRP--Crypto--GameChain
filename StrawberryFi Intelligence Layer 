@@ -1,0 +1,42 @@
+####Readme.md####
+
+Gives StrawberryFi Ai - like behavior without Heavy Ai Tools
+
+
+ledger/intelligence.js
+
+
+
+
+
+
+function detectPatterns(chain) {
+  let alerts = [];
+
+  let frequencyMap = {};
+
+  chain.forEach(block => {
+    const tx = block.transaction;
+
+    const key = `${tx.from}->${tx.to}`;
+    frequencyMap[key] = (frequencyMap[key] || 0) + 1;
+
+    if (frequencyMap[key] > 5) {
+      alerts.push({
+        type: "SPAM_PATTERN",
+        message: `Repeated transactions between ${tx.from} and ${tx.to}`
+      });
+    }
+
+    if (tx.amount > 500000) {
+      alerts.push({
+        type: "HIGH_VALUE",
+        message: `Large transaction detected: ${tx.amount}`
+      });
+    }
+  });
+
+  return alerts;
+}
+
+module.exports = { detectPatterns };
