@@ -1,0 +1,40 @@
+npm init -y
+npm install commander
+
+
+
+#!/usr/bin/env node
+const { program } = require('commander');
+
+program
+  .name('strawberryfi-tool')
+  .description('Utility tool for StrawberryFi navigation')
+  .version('1.0.0');
+
+program
+  .command('run')
+  .description('Run the tool')
+  .action(() => {
+    console.log('🍓 StrawberryFi tool is running...');
+  });
+
+program.parse();
+
+
+
+
+
+npm publish
+
+
+
+
+npm install -g strawberryfi-tool
+
+
+
+
+
+
+
+
