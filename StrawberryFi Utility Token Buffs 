@@ -1,0 +1,156 @@
+####Readme.md####
+
+StrawberryFi"s Heart Base For Blockchain integration 
+
+
+const Token = {
+  name: "StrawberryFi",
+  symbol: "STFI",
+  decimals: 18,
+  totalSupply: 1000000
+};
+
+
+
+
+
+let balances = {};
+
+function createWallet(address) {
+  if (!balances[address]) {
+    balances[address] = 0;
+  }
+}
+
+function getBalance(address) {
+  return balances[address] || 0;
+}
+
+function updateBalance(address, amount) {
+  balances[address] = (balances[address] || 0) + amount;
+}
+
+module.exports = {
+  createWallet,
+  getBalance,
+  updateBalance
+};
+
+
+
+
+
+
+const crypto = require('crypto');
+
+function signTransaction(privateKey, data) {
+  return crypto
+    .createHmac('sha256', privateKey)
+    .update(JSON.stringify(data))
+    .digest('hex');
+}
+
+function verifySignature(signature, data, privateKey) {
+  const validSig = signTransaction(privateKey, data);
+  return signature === validSig;
+}
+
+module.exports = {
+  signTransaction,
+  verifySignature
+};
+
+
+
+
+
+const { getBalance, updateBalance } = require('./wallet');
+
+function transfer(from, to, amount) {
+  if (getBalance(from) < amount) {
+    return { success: false, error: "Insufficient funds" };
+  }
+
+  updateBalance(from, -amount);
+  updateBalance(to, amount);
+
+  return { success: true };
+}
+
+module.exports = { transfer };
+
+
+
+
+const { updateBalance } = require('./wallet');
+
+let totalSupply = 0;
+
+function mint(to, amount) {
+  totalSupply += amount;
+  updateBalance(to, amount);
+
+  return {
+    message: "Tokens minted",
+    totalSupply
+  };
+}
+
+function getSupply() {
+  return totalSupply;
+}
+
+module.exports = {
+  mint,
+  getSupply
+};
+
+
+
+
+const { transfer } = require('./token/transfer');
+const { verifySignature } = require('./token/security');
+
+app.post('/send', (req, res) => {
+  const { from, to, amount, signature, privateKey } = req.body;
+
+  const isValid = verifySignature(signature, { from, to, amount }, privateKey);
+
+  if (!isValid) {
+    return res.status(403).json({ error: "Invalid signature" });
+  }
+
+  const result = transfer(from, to, amount);
+
+  if (!result.success) {
+    return res.status(400).json(result);
+  }
+
+  res.json({
+    message: "🍓 Transfer successful"
+  });
+});
+
+
+
+
+
+app.get('/balance/:address', (req, res) => {
+  const balance = getBalance(req.params.address);
+  res.json({ balance });
+});
+
+app.get('/supply', (req, res) => {
+  res.json({ totalSupply: getSupply() });
+});
+
+
+
+
+
+
+
+
+
+
+
