@@ -1,0 +1,194 @@
+####Readme.md####
+
+a Risk Scoring System For StrawberryFi With Advanced Blockchain input 
+
+
+function calculateRisk(tx, userHistory) {
+  let score = 0;
+
+  // Large transaction
+  if (tx.amount > 100000) score += 40;
+
+  // New user (no history)
+  if (!userHistory || userHistory.length === 0) score += 20;
+
+  // Rapid transactions
+  if (userHistory && userHistory.length > 5) {
+    score += 15;
+  }
+
+  // Self-loop detection
+  if (tx.from === tx.to) score += 50;
+
+  return Math.min(score, 100);
+}
+
+module.exports = { calculateRisk };
+
+
+
+
+function detectFraudPatterns(chain) {
+  let flagged = [];
+
+  let activityMap = {};
+
+  chain.forEach(block => {
+    const { from, to, amount } = block.transaction;
+
+    const key = `${from}-${to}`;
+    activityMap[key] = (activityMap[key] || 0) + 1;
+
+    // Repeated suspicious transfers
+    if (activityMap[key] > 10) {
+      flagged.push({
+        type: "LOOP_ATTACK",
+        pair: key
+      });
+    }
+
+    // Sudden large spike
+    if (amount > 500000) {
+      flagged.push({
+        type: "WHALE_MOVEMENT",
+        amount
+      });
+    }
+  });
+
+  return flagged;
+}
+
+module.exports = { detectFraudPatterns };
+
+
+
+
+
+function analyzePortfolio(address, chain) {
+  let incoming = 0;
+  let outgoing = 0;
+
+  chain.forEach(block => {
+    const tx = block.transaction;
+
+    if (tx.to === address) incoming += tx.amount;
+    if (tx.from === address) outgoing += tx.amount;
+  });
+
+  return {
+    balance: incoming - outgoing,
+    totalIn: incoming,
+    totalOut: outgoing,
+    activityScore: incoming + outgoing
+  };
+}
+
+module.exports = { analyzePortfolio };
+
+
+
+
+
+
+
+function predictNextMove(userHistory) {
+  if (!userHistory || userHistory.length === 0) {
+    return "NEW_USER";
+  }
+
+  const avg = userHistory.reduce((sum, tx) => sum + tx.amount, 0) / userHistory.length;
+
+  if (avg > 100000) {
+    return "HIGH_VOLUME_USER";
+  }
+
+  if (userHistory.length > 10) {
+    return "ACTIVE_TRADER";
+  }
+
+  return "NORMAL_USER";
+}
+
+module.exports = { predictNextMove };
+
+
+
+
+function makeDecision(riskScore) {
+  if (riskScore > 80) {
+    return "BLOCK_TRANSACTION";
+  }
+
+  if (riskScore > 50) {
+    return "FLAG_FOR_REVIEW";
+  }
+
+  return "APPROVE";
+}
+
+module.exports = { makeDecision };
+
+
+
+
+
+
+const { calculateRisk } = require('./ai/riskEngine');
+const { makeDecision } = require('./ai/decisionEngine');
+
+app.post('/transaction', (req, res) => {
+  const tx = req.body;
+
+  const userHistory = chain
+    .map(b => b.transaction)
+    .filter(t => t.from === tx.from);
+
+  const risk = calculateRisk(tx, userHistory);
+  const decision = makeDecision(risk);
+
+  if (decision === "BLOCK_TRANSACTION") {
+    return res.status(403).json({
+      error: "Transaction blocked by AI",
+      risk
+    });
+  }
+
+  const block = addTransaction(tx);
+
+  res.json({
+    message: "🍓 AI Approved Transaction",
+    risk,
+    decision,
+    block
+  });
+});
+
+
+
+
+
+app.get('/ai/fraud', (req, res) => {
+  res.json(detectFraudPatterns(getChain()));
+});
+
+app.get('/ai/portfolio/:address', (req, res) => {
+  res.json(analyzePortfolio(req.params.address, getChain()));
+});
+
+app.get('/ai/predict/:address', (req, res) => {
+  const history = getChain()
+    .map(b => b.transaction)
+    .filter(t => t.from === req.params.address);
+
+  res.json({
+    prediction: predictNextMove(history)
+  });
+});
+
+
+
+
+
+
+
