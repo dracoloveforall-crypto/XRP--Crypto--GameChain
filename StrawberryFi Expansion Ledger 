@@ -1,0 +1,26 @@
+####Readme.md#### 
+
+
+Expansion Ledger For StrawberryFi utility token 
+
+
+let ledger = [];
+
+function addTransaction(user, action, amount) {
+  const tx = {
+    id: Date.now(),
+    user,
+    action,
+    amount,
+    timestamp: new Date()
+  };
+
+  ledger.push(tx);
+  return tx;
+}
+
+function getLedger() {
+  return ledger;
+}
+
+module.exports = { addTransaction, getLedger };
