@@ -1,0 +1,15 @@
+####Readme.md#### 
+
+a Code that allows StrawberryFi To Be Used In Other Apps 
+
+
+const express = require('express');
+const app = express();
+
+app.get('/api/strawberry', (req, res) => {
+  res.json({ message: "🍓 StrawberryFi active" });
+});
+
+app.listen(3000, () => {
+  console.log('Server running on port 3000');
+});
