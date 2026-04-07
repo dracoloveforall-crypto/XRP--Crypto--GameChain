@@ -1,0 +1,19 @@
+####Readme.md####
+
+
+Structure base for StrawberryFi utility token 
+
+
+strawberryfi/
+│
+├── backend/
+│   ├── server.js
+│   ├── ledger.js
+│   ├── routes/
+│   │   └── api.js
+│
+├── frontend/
+│   └── index.html
+│
+├── package.json
+├── README.md
