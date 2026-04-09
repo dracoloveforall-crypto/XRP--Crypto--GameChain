@@ -41,3 +41,20 @@ SR-3 Supply Chain Controls & Processes Integrates $SFI utility tokens as a manda
 ​Validation: It proves you understand the "American AI Stack" better than most silicon valley firms.
 
 
+
+
+from xrpl.wallet import Wallet
+
+# Generate a new, secure wallet for the Sovereign Nexus project
+guardian_wallet = Wallet.create()
+
+print("--- PROJECT 050: GUARDIAN WALLET GENERATED ---")
+print(f"PUBLIC ADDRESS (The ID for GitHub): {guardian_wallet.classic_address}")
+print(f"SECRET SEED (KEEP THIS SECURE/OFFLINE): {guardian_wallet.seed}")
+print("----------------------------------------------")
+print("ACTION: Copy the Public Address into your COMPLIANCE.md file.")
+print("WARNING: If you lose the Seed, you lose control of the Guardian Identity.")
+
+
+
+
