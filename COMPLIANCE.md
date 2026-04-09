@@ -1,6 +1,6 @@
 ###Readme.md### 
 
-Certificate For T9 Golden Dragon Sheild  Review 
+offical Certificate For T9 Golden Dragon Sheild  Review 
 
 
 COMPLIANCE.md: Sovereign Nexus ($SFI-XRPL)
@@ -55,6 +55,9 @@ print("----------------------------------------------")
 print("ACTION: Copy the Public Address into your COMPLIANCE.md file.")
 print("WARNING: If you lose the Seed, you lose control of the Guardian Identity.")
 
+
+
+r4SFiNexusGov1Z7xPq9Wv8YtU3kL2mNj5
 
 
 
