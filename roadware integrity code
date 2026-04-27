@@ -1,0 +1,27 @@
+####Readme.md####
+
+ a software that uses geology, GPS and artificial intelligence to identify road and highway damages and potholes to alert for fix
+
+
+
+# Roadway Integrity & Asset Valuation Script
+import time
+
+def assess_roadway_value(location, damage_type, severity):
+    # Calculate value loss based on damage
+    base_value = 1000000  # Base value per mile
+    impact_multiplier = {"pothole": 0.05, "faded_sign": 0.02, "crack": 0.01}
+    
+    current_loss = base_value * impact_multiplier.get(damage_type, 0) * severity
+    new_asset_value = base_value - current_loss
+    
+    # Push to ledger for transparent infrastructure tracking
+    ledger_entry = {
+        "coordinates": location,
+        "status": "Needs Attention" if severity > 0.5 else "Stable",
+        "valuation": f"${new_asset_value:,.2f}"
+    }
+    return ledger_entry
+
+# Example: Reporting a pothole in real-time
+print(assess_roadway_value("35.3975° N, 78.8142° W", "pothole", 0.8))
