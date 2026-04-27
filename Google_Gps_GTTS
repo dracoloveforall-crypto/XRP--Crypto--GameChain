@@ -1,0 +1,30 @@
+####Readme.md####
+
+a Google maps gps utility that voice automates gps to help the quality of Geologistics locating 
+
+
+import googlemaps
+from gtts import gTTS
+import os
+import play_sound # Requires a library like playsound or pygame
+
+# Initialize API client
+gmaps = googlemaps.Client(key='YOUR_API_KEY')
+
+def get_voice_navigation(origin, destination):
+    # Fetch directions
+    directions = gmaps.directions(origin, destination)
+    
+    for leg in directions[0]['legs']:
+        for step in leg['steps']:
+            # Clean HTML tags from instructions
+            instruction = step['html_instructions'].replace('<b>', '').replace('</b>', '')
+            print(f"Navigation: {instruction}")
+            
+            # Generate and play voice response
+            tts = gTTS(text=instruction, lang='en')
+            tts.save("nav.mp3")
+            os.system("mpg321 nav.mp3") # Plays the audio
+
+# Example use case for your current trip
+get_voice_navigation("9423 NC 210, NC", "175 Bain St, Lillington, NC")
