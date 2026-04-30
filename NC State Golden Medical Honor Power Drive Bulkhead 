@@ -1,0 +1,44 @@
+####Readme.md####
+
+this new software initiative for North carolina and the united states that helps to Create New Progressive Evolution of Medicine using cannabis and Plant taxonomy Research Against cancer, bacteria , and deadly pathogens, Safe food, Heavy metal accumulation and plant chemical compounds Quantum Research to create new types of medicines to help combat deadly infections such as Sexually transmitted diseases, Hiv aids, and More using Artificial intelligence and Biology and Medical Knowledge 
+
+
+
+"""
+OMNICORE-XRAI SYSTEM: THE NORTH CAROLINA SOVEREIGNTY ENGINE
+Merge: DeSci, AI/ASI Hive, Agrobacterium Remediators, & StrawberryFi Ledger
+Objective: Pathogen Eradication & Botanical Innovation
+"""
+
+import hashlib
+import time
+from abc import ABC, abstractmethod
+
+# --- 1. THE AI HIVE: AGENTIC ORCHESTRATION ---
+class ScienceAgent(ABC):
+    def __init__(self, name, specialty):
+        self.name = name
+        self.specialty = specialty
+
+    @abstractmethod
+    def execute_task(self, data):
+        pass
+
+class BioBot(ScienceAgent):
+    def execute_task(self, compound):
+        return f"[{self.name}] Analyzing {compound} for anti-viral latency..."
+
+class LawBot(ScienceAgent):
+    def execute_task(self, policy):
+        return f"[{self.name}] Aligning {policy} with NC H413 & FDA safety standards."
+
+# --- 2. THE BIOLOGICAL CORE: HFBGT SYNTHESIS ---
+class HFBGT_Engine:
+    """
+    Horizontal Filtered Base Gene Transfer (HFBGT)
+    Objective: Filter chemical compounds BEFORE seed/flower production.
+    Targets: Heavy Metals, Toxins, and Deadly Pathogens.
+    """
+    def __init__(self):
+        self.base_genetics = ["Cannabis Sativa", "Amanita Muscaria", "Dandelion Root"]
+        self.venom_peptides = ["Snake-
