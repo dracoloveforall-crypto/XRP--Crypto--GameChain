@@ -1,0 +1,54 @@
+####Readme.md#####
+
+a system designed to Discover and track Information and Data in real time. 
+
+
+import json
+from datetime import datetime
+
+# Investigative Tracker Logic for Sabera McNeil Case
+# Focusing on the Charleston/Columbia/Fayetteville corridor
+
+class InvestigatorBot:
+    def __init__(self, target_name, keywords, locations):
+        self.target_name = target_name
+        self.keywords = keywords
+        self.locations = locations
+        self.report = []
+
+    def log_event(self, source, detail):
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        entry = {
+            "timestamp": timestamp,
+            "source": source,
+            "detail": detail
+        }
+        self.report.append(entry)
+        print(f"[{timestamp}] {source}: {detail}")
+
+    def monitor_public_records(self):
+        # Logic to flag specific filings in SC/NC registries
+        self.log_event("SC_SEC_STATE", f"Scanning for business filings under {self.target_name}...")
+        self.log_event("CHARLESTON_ROD", f"Checking property transfers involving {self.target_name}...")
+
+    def monitor_social_intelligence(self):
+        # Patterns for 'smart remarks' and 'street chatter'
+        for word in self.keywords:
+            self.log_event("STREET_INTEL", f"Alert: Monitoring chatter for keyword '{word}' in {self.locations}")
+
+    def save_to_log(self):
+        filename = f"investigation_log_{datetime.now().strftime('%Y%m%d')}.json"
+        with open(filename, "w") as f:
+            json.dump(self.report, f, indent=4)
+        print(f"Log saved to {filename}")
+
+# INITIALIZATION
+# Targets the individual and the key elements you mentioned
+target = "AJ Brown"
+keywords = ["stolen safe", "settlement money", "dandelion root", "heavy metals", "pay off"]
+locations = ["Charleston, SC", "Columbia, SC", "Fayetteville, NC"]
+
+bot = InvestigatorBot(target, keywords, locations)
+bot.monitor_public_records()
+bot.monitor_social_intelligence()
+bot.save_to_log()
