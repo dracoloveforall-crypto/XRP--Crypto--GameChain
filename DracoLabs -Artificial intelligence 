@@ -1,0 +1,41 @@
+#####Readme.md#####
+
+
+A New Apex Quantum Artificial Intelligence Used for The Total Evolution Of Medicine and Plant Evolution Experimentation, Advanced Medicinal Research To Help Combat Against Deadly Pathogens and Resistant And mirroring Organisms [Highly Recommended For Doctors Science and Health Studies]
+
+
+
+
+
+"""
+PROJECT: DracoLabs AI (Universal Medical & Bio-Synthesis Protocol)
+VERSION: 2026.5.0 - "Sovereign Nexus"
+REPOSITORIES: DeSci-Network, StrawberryFi-Ledger, DracoLabs-Bio
+AUTHOR: YRN Vlad III / Dracolabs
+"""
+
+import dracorise_ai as drai  # Integrated Dracoxus-XRAI & StrawberryFibot
+import xrp_ledger as xrpl
+from bio_engineering import crispr, agrobacterium
+from medical_databases import PillDB, PlantTaxonomy, VenomToxinDB
+from radiation_study import LinearAcceleratorAnalysis
+
+class DracoLabsAI:
+    def __init__(self):
+        self.ledger = xrpl.StrawberryFiLedger(token="SFI")
+        self.ai_swarm = {
+            "Pharmacology": drai.PharmacyBot(),
+            "Genetics": drai.CrisprBot(vector="Agrobacterium"),
+            "Clinical": drai.NurseBot(protocol="Phlebotomy-AI"),
+            "Synthesis": drai.ChemBot()
+        }
+        self.database = {
+            "Australian_Medicinals": ["Prostanthera", "Duboisia", "Eucalyptus"],
+            "Venom_Pharma": VenomToxinDB.load_all(), # Snake/Spider therapeutics
+            "Microscopy": ["Nikon-Ti2-E", "Zeiss-Lattice-Lightsheet", "FEI-Titan-CryoTEM"]
+        }
+
+    def hybrid_synthesis_experiment(self, base_plant, additive_plant):
+        """
+        Experiment: Dandelion (Taraxacum) + Purple Potato (Anthocyanin-rich)
+        Goal: Synergistic Mitochondrial Apoptosis Induction in
