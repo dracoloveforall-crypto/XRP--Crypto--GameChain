@@ -1,0 +1,17 @@
+####Readme.md#####
+
+a chart that levels medicinal potency with a variety of herbs and plant compounds 
+
+
+
+# Medicinal Potency Heatmap (Botanical GitHub Chart)
+
+[ L4: High Potency ] [ L3: Moderate ] [ L2: Therapeutic ] [ L1: Mild/Nutritive ]
+
+| Category | S | M | T | W | T | F | S |
+| :--- | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
+| **Alkaloid Heavies (L4)** | █ | █ | █ | █ | █ | █ | █ |
+| **Broad Antivirals (L3)** | ▒ | ▒ | ▒ | ▒ | ▒ | ▒ | ▒ |
+| **Adaptogens (L2)** | ░ | ░ | ░ | ░ | ░ | ░ | ░ |
+| **Nutritive Tonics (L1)** | . | . | . | . | . | . | . |
+
