@@ -1,0 +1,58 @@
+++------+++++Readme.md++------+++++ 
+
+a MIT License For Hantavirus Ai Legality and Authentication 
+
+
+"""
+PROJECT: HANTAVIRUS AI OMNI-CORE
+LEGAL: MIT License (c) 2026 Deontea Keith McNeil
+DESCRIPTION: Unified framework merging security, ledger utility, and AI analysis.
+"""
+
+import hashlib
+import time
+import secrets
+import json
+
+# ==========================================
+# 1. LEGAL & LICENSE BLOCK
+# ==========================================
+LICENSE = """
+MIT License
+Copyright (c) 2026 Deontea Keith McNeil
+Permission is hereby granted for full use and modification of Hantavirus AI 
+integration suites including StrawberryFi, Dracoxus, and CrowZot.
+"""
+
+# ==========================================
+# 2. THE OMNI-CORE ENGINE
+# ==========================================
+class HantavirusAINexus:
+    def __init__(self):
+        self.identity = "Hantavirus-AI-050"
+        self.creator = "Deontea Keith McNeil"
+        self.is_active = False
+        
+        # System Registry
+        self.systems = {
+            "security": ["Intellular Arbitrary Protection", "IP Shielding", "Antimalware"],
+            "ai_layers": ["Dracoriseai", "Dracoxus-XRAI"],
+            "utility": ["StrawberryFi Ledger", "StrawberryFibot", "StrawberryFi Token"],
+            "monitoring": ["CrowZot", "Motebook"]
+        }
+        
+        self.ledger = []
+        self.session_key = secrets.token_hex(32)
+
+    # --- SECURITY DEFENSE MODULE (VPN & IP SHIELDING) ---
+    def activate_defenses(self):
+        print(f"\n[SEC-DEFENSE] Initializing {self.systems['security'][0]}...")
+        time.sleep(0.5)
+        print(f"[SEC-DEFENSE] Shielding IP Address and Tunneling via VPN...")
+        print(f"[SEC-DEFENSE] Antimalware capabilities: ONLINE.")
+        self.is_active = True
+        return True
+
+    # --- AI INTEGRATION MODULE (DRACO-CORE) ---
+    def run_draco_analysis(self, data_stream):
+        print(f"\n[AI-CORE] Dracoriseai & Dracoxus-XRAI
