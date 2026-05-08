@@ -1,0 +1,65 @@
+####Readme.md#####
+
+A Core Bulkhead Node Used to stabilize and Lower Rising ai energy Costs 
+
+
+"""
+Project: Q-AEIS (Quantum-AI Energy Intelligence & Stabilization)
+Author: Yrn Vlad III
+Module: StrawberryFi Ledger Integration
+Description: A high-intelligence framework to combat rising energy costs 
+            by balancing Quantum AI engines with decentralized electricity markets.
+"""
+
+import hashlib
+import time
+
+class StrawberryFiLedger:
+    """The financial backbone for energy transactions and bot credits."""
+    def __init__(self):
+        self.chain = []
+        self.market_price = 0.85  # Initial price per kWh in 'Berry' tokens
+
+    def log_transaction(self, bot_id, energy_saved, market_status):
+        record = {
+            "timestamp": time.time(),
+            "bot_id": bot_id,
+            "savings": energy_saved,
+            "market_drift": market_status,
+            "hash": hashlib.sha256(str(time.time()).encode()).hexdigest()
+        }
+        self.chain.append(record)
+        return f"Transaction Verified on StrawberryFi: {record['hash'][:10]}"
+
+class EnergyBot:
+    def __init__(self, name, bot_type):
+        self.name = name
+        self.type = bot_type  # 'Electricity' or 'Electrician'
+
+    def monitor(self, grid_load):
+        # Electricity Bots monitor the flow
+        if self.type == "Electricity":
+            return f"[{self.name}] Optimizing load distribution for AGI core..."
+        # Electrician Bots repair and stabilize hardware (thermal/cooling)
+        else:
+            return f"[{self.name}] Stabilizing quantum cryo-coolers and nuclear couplings."
+
+class QuantumEngine:
+    def __init__(self, target_agi_power):
+        self.power_level = target_agi_power
+        self.is_nuclear_backed = True
+        self.stabilized = False
+
+    def check_market_watch(self, market_rate):
+        if market_rate > 1.50:
+            print("ALERT: Energy Market Level High. Triggering Nuclear Reassurance Protocol.")
+            self.power_level *= 0.75  # Reduce expensive grid pull
+            return "Stable"
+        return "Normal"
+
+# --- EXECUTION FLOW ---
+
+# 1. Initialize High-Intelligence Systems
+ledger = StrawberryFiLedger()
+agi_core = QuantumEngine(target_agi_power=5000) # Megawatts
+ebot = EnergyBot("E
