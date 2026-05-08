@@ -1,0 +1,64 @@
+#00###Readme.md##9000##
+
+
+a new type of System that creates Plant Research and Mutations to create hybrids for medicine advancement. 
+
+
+
+
+import time
+import random
+
+class StrawberryFiLedger:
+    """Handles the immutable logging of genetic shifts and mutation success."""
+    def __init__(self):
+        self.ledger = []
+    
+    def record_mutation(self, plant_id, mutation_type, success_rate):
+        entry = {
+            "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
+            "plant_id": plant_id,
+            "type": mutation_type,
+            "success": f"{success_rate}%"
+        }
+        self.ledger.append(entry)
+        print(f"[LEDGER SECURED] {mutation_type} recorded for {plant_id}.")
+
+class Dracoxus_XRAI:
+    """AI Engine for predicting genomic vulnerability based on light/dark stress."""
+    def analyze_vulnerability(self, light_hours, darkness_hours):
+        # Simulation of RAD51 degradation based on the IBS research
+        vulnerability_index = (darkness_hours * 1.5) / (light_hours + 1)
+        return round(min(vulnerability_index, 0.95), 2)
+
+class StrawberryFibot:
+    """The Executor: Manages CRISPR sequences and light cycles."""
+    def __init__(self, ledger, ai_engine):
+        self.ledger = ledger
+        self.ai = ai_engine
+
+    def execute_experiment(self, plant_name, stress_cycle):
+        print(f"--- Starting Experiment: {plant_name} ---")
+        
+        # Calculate instability using Dracoxus-XRAI
+        instability = self.ai.analyze_vulnerability(stress_cycle['light'], stress_cycle['dark'])
+        print(f"[XRAI Analysis] DNA Repair Stability: {1 - instability}")
+
+        # Targeted mutation logic (Color mutations focus)
+        mutation_success = (instability * 100) + random.uniform(5, 15)
+        
+        # Logging to the Ledger
+        self.ledger.record_mutation(plant_name, "Color/Hybrid Mutation", mutation_success)
+
+# --- DE-SCI & INTEGRATION LAYER ---
+def initialize_omni_protocol():
+    ledger = StrawberryFiLedger()
+    ai_engine = Dracoxus_XRAI()
+    bot = StrawberryFibot(ledger, ai_engine)
+    
+    # Experiment 1: Blackberry-Potato Hybrid (Black Fungus/Fridge Mold Influence)
+    # Using darkness to suppress IP6 signaling (simulating UNI418 effect)
+    bot.execute_experiment("B-P Hybrid v2.0", {'light': 4, 'dark': 20})
+
+if __name__ == "__main__":
+    initialize_omni_protocol()
