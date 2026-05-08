@@ -1,0 +1,23 @@
+####000Readme.md#####000
+
+a storage system used to saved information and data using a storage with utility wigets
+widgets
+
+
+/root
+  ├── /apex_modules          # Arbitrary Apex folders (Salesforce/Backend logic)
+  │   ├── /core_logic
+  │   └── /utility_widgets   # Unique UI/UX components
+  ├── /quantum_vault         # Deep-file directory for expanded notepads/data
+  │   └── /data_shards
+  ├── /task_engine           # Task Mode: YRN-Vlad-III processing
+  └── README.md
+
+
+
+
+
+
+
+
+
