@@ -1,0 +1,44 @@
+####Readme.md####
+
+
+a Technological Upgrade For Artificial intelligence and Robotics Development to further increase Screen Capabilities 
+
+
+import torch
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
+
+class PropagandaDetector:
+    def __init__(self):
+        # Using a model trained specifically on propaganda techniques
+        self.model_name = "qcri/bert-base-multilingual-cased-propaganda-techniques"
+        self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
+        self.model = AutoModelForSequenceClassification.from_pretrained(self.model_name)
+        
+        # Defining the "Fear State" categories we want to spot
+        self.labels = [
+            "Appeal_to_Fear-Prejudice", "Loaded_Language", "Exaggeration-Minimisation",
+            "Flag-Waving", "Causal_Oversimplification", "Slogans", "Thought-Terminating_Cliché"
+        ]
+
+    def analyze_stream(self, text):
+        inputs = self.tokenizer(text, return_tensors="pt", truncation=True, padding=True)
+        outputs = self.model(**inputs)
+        probs = torch.nn.functional.softmax(outputs.logits, dim=-1)
+        
+        results = []
+        for i, prob in enumerate(probs[0]):
+            if prob > 0.5:  # Confidence threshold
+                results.append({
+                    "technique": self.labels[i] if i < len(self.labels) else "Unknown",
+                    "confidence": float(prob),
+                    "alert_level": "HIGH" if "Fear" in self.labels[i] else "MEDIUM"
+                })
+        return results
+
+# Example Usage
+detector = PropagandaDetector()
+news_headline = "Terrifying new threat looms over the city, citizens must act now!"
+alerts = detector.analyze_stream(news_headline)
+
+for a in alerts:
+    print(f"ALERT: {a['technique']} detected! Confidence: {a['confidence']:.2f}")
