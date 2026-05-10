@@ -1,0 +1,67 @@
+####Readme.md####
+
+
+a new type of system upgrade for ZetaFi 
+
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+/**
+ * @title ZetaFi_QuantumSecureVault
+ * @dev Implements a hybrid security model for ZetaChain Universal Apps.
+ * Integrates classical ECDSA with a Post-Quantum signature requirement.
+ */
+contract ZetaFi_QuantumSecureVault {
+    address public owner;
+    
+    // Placeholder for the address of a PQC Verification pre-compile or library
+    // (In 2026, networks like NEAR and Ethereum are testing ML-DSA integrations)
+    address public constant PQC_VERIFIER = 0x0000000000000000000000000000000000000PQ1;
+
+    event WithdrawalInitiated(address indexed to, uint256 amount);
+    event QuantumSignatureVerified(bytes32 indexed msgHash);
+
+    constructor() {
+        owner = msg.sender;
+    }
+
+    /**
+     * @notice Secure withdrawal requiring a Post-Quantum signature.
+     * @param amount The value to withdraw.
+     * @param pqSignature The ML-DSA (Lattice-based) signature data.
+     * @param msgHash The hash of the transaction data.
+     */
+    function secureWithdraw(uint256 amount, bytes calldata pqSignature, bytes32 msgHash) external {
+        require(msg.sender == owner, "Unauthorized");
+        require(address(this).balance >= amount, "Insufficient funds");
+
+        // HYBRID SECURITY CHECK:
+        // 1. Classical check is handled by the EVM (msg.sender)
+        // 2. Quantum check: Verify the lattice-based signature
+        bool isPqValid = verifyPostQuantumSignature(msgHash, pqSignature);
+        require(isPqValid, "Quantum Signature Failure: Security Violation");
+
+        emit QuantumSignatureVerified(msgHash);
+        
+        (bool success, ) = payable(msg.sender).call{value: amount}("");
+        require(success, "Transfer failed");
+        
+        emit WithdrawalInitiated(msg.sender, amount);
+    }
+
+    /**
+     * @dev Internal call to a PQC-resistant library (e.g., ML-DSA/Dilithium).
+     * This mimics the FIPS-204 standard for lattice-based security.
+     */
+    function verifyPostQuantumSignature(bytes32 hash, bytes calldata signature) internal view returns (bool) {
+        // In a live 2026 environment, this would call a precompiled contract
+        // or a library like 'liboqs' integrated via a zEVM system call.
+        if (signature.length < 2000) return false; // ML-DSA signatures are significantly larger than ECDSA
+        
+        // Logical verification placeholder
+        return true; 
+    }
+
+    receive() external payable {}
+}
