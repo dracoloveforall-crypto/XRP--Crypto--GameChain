@@ -1,0 +1,49 @@
+####Readme.md#####md100
+
+a complex system used for rain technology to help establish Drought Resistant Stability
+
+
+import math
+
+class RainLogic:
+    """
+    Module for calculating dew point and moisture accumulation 
+    to assist AI in atmospheric water harvesting.
+    """
+
+    def __init__(self, temp_c, humidity):
+        self.temp_c = temp_c
+        self.humidity = humidity
+
+    def calculate_dew_point(self):
+        """
+        Calculates the temperature at which water vapor condenses into liquid.
+        """
+        # Constants for the Magnus-Tetens Formula
+        a = 17.27
+        b = 237.7
+        
+        alpha = ((a * self.temp_c) / (b + self.temp_c)) + math.log(self.humidity / 100.0)
+        dew_point = (b * alpha) / (a - alpha)
+        
+        return round(dew_point, 2)
+
+    def accumulation_risk(self, dew_point):
+        """
+        Assesses risk of spontaneous water pooling (condensation).
+        """
+        if self.temp_c <= dew_point:
+            return "HIGH: Condensation and pooling imminent."
+        elif (self.temp_c - dew_point) < 3:
+            return "MODERATE: High humidity/capillary absorption likely."
+        return "LOW: Atmosphere remains vapor-dominant."
+
+# Example Usage for the Anderson Creek Environment
+current_temp = 18  # Celsius
+current_humidity = 92 # Percentage
+
+monitor = RainLogic(current_temp, current_humidity)
+dp = monitor.calculate_dew_point()
+
+print(f"Current Dew Point: {dp}°C")
+print(f"AI Status: {monitor.accumulation_risk(dp)}")
