@@ -1,0 +1,51 @@
+####Readme.md00rrryhhhhhttt024t8
+
+a high intelligence software used to identifying and scan for insects and organisms on clothing, skin, with movement Radar Detection With Led and Ultraviolet Lighting EcoSystems
+
+
+
+
+
+
+import cv2
+import numpy as np
+from ultralytics import YOLO
+import datetime
+
+# --- CONFIGURATION & MODEL INITIALIZATION ---
+# Name: InsectaFi v1.0
+# Description: AI-Powered Tick & Mosquito Detection with Multi-Spectrum Vision
+
+class InsectaFi:
+    def __init__(self, model_path='yolov8n.pt'):
+        # Load the detection brain (YOLOv8 recommended for mobile/laptop speed)
+        self.model = YOLO(model_path)
+        self.cap = cv2.VideoCapture(0)
+        
+        # System States
+        self.modes = ["STANDARD", "UV_BIO", "QUANTUM_RADAR", "NIGHT_LED"]
+        self.current_mode_idx = 0
+        self.is_running = True
+
+    def apply_uv_bio_filter(self, frame):
+        """Enhances biological fluorescence using UV spectrum simulation."""
+        # Convert to LAB space to manipulate luminance and color channels
+        lab = cv2.cvtColor(frame, cv2.COLOR_BGR2LAB)
+        l, a, b = cv2.split(lab)
+        
+        # Boost the 'b' channel (blue-yellow) to highlight potential chitin/biologicals
+        b = cv2.add(b, 50) 
+        enhanced_lab = cv2.merge((l, a, b))
+        uv_frame = cv2.cvtColor(enhanced_lab, cv2.COLOR_LAB2BGR)
+        
+        # Apply a purple/neon tint
+        tint = np.full_like(uv_frame, (130, 0, 75)) # Deep Violet
+        return cv2.addWeighted(uv_frame, 0.8, tint, 0.2, 0)
+
+    def quantum_radar_mode(self, frame):
+        """Simulates high-sensitivity detection via noise-floor amplification."""
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        # Apply CLAHE (Contrast Limited Adaptive Histogram
+
+
+ 
