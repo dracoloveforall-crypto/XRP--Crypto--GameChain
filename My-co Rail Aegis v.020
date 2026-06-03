@@ -1,0 +1,69 @@
+###099sii Readme.md tysp6030000
+
+a new speed system upgrade for trains that has a variety of technological and Financial Decentralized Capabilities 
+
+
+
+"""
+PROJECT REGISTRY: MYCO-RAIL AEGIS (PROJECT RAIL-MNS)
+INTEGRATED SYSTEM MANIFEST:
+  1. Rail-MNS Core Fleet Orchestrator (Acoustic-Mesh Ledger)
+  2. 3D Welding Machinery Forge Printer (Structural Track Repair)
+  3. Persona/Protocol Agents: YRN Vlad III AI, Manus AI, Motebook, DeSci Node
+  4. All-Weather Charging Hook-Slider Platform (Coal Engine Integration)
+  5. StrawberryFi Ecosystem Merger (Utility Token, Bot, Ledger, Edge/Agentic AI)
+  6. Deca-Thermal Anti-Overheating Safeguard Matrix
+
+TARGET PLATFORM: GitHub Production Repository
+SECURITY LEVEL: High-Integrity Infrastructure Protocol
+"""
+
+import asyncio
+import hashlib
+import json
+import math
+import random
+import time
+from dataclasses import asdict, dataclass, field
+from typing import Dict, List, Optional, Tuple
+
+# =====================================================================
+# 1. STRAWBERRYFI ECOSYSTEM & DECENTRALIZED LEDGER MERGER
+# =====================================================================
+
+@dataclass
+class Transaction:
+    sender: str
+    recipient: str
+    amount: float
+    token_utility: str
+    timestamp: float = field(default_factory=time.time)
+    signature: str = ""
+
+    def calculate_hash(self) -> str:
+        payload = f"{self.sender}{self.recipient}{self.amount}{self.token_utility}{self.timestamp}"
+        return hashlib.sha256(payload.encode()).hexdigest()
+
+@dataclass
+class StrawberryFiBlock:
+    index: int
+    transactions: List[Transaction]
+    previous_hash: str
+    timestamp: float = field(default_factory=time.time)
+    nonce: int = 0
+    hash: str = ""
+
+    def compute_hash(self) -> str:
+        tx_data = json.dumps([asdict(tx) for tx in self.transactions], sort_keys=True)
+        payload = f"{self.index}{tx_data}{self.previous_hash}{self.timestamp}{self.nonce}"
+        return hashlib.sha256(payload.encode()).hexdigest()
+
+    def mine_block(self, difficulty: int = 2):
+        target = "0" * difficulty
+        while not self.hash.startswith(target):
+            self.nonce += 1
+            self.hash = self.compute_hash()
+
+
+class StrawberryFiLedger:
+    """High-integrity distributed ledger for automated smart-contract
