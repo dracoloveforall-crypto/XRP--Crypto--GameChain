@@ -1,0 +1,69 @@
+#####@@@#Readme.md 9099 y 599990
+
+a system for expanding artificial intelligence 
+
+
+# ==============================================================================
+# PROJECT CODE: INTEL#2 - COHESIVE CORE FRAMEWORK
+# DESCRIPTION: Unified high-integrity protocol bridge for decentralized operations,
+#              environmental monitoring, and automated system synchronization.
+# STATUS: SAVED & SECURED
+# ==============================================================================
+
+import os
+import json
+import time
+import hashlib
+from typing import Dict, Any, List
+
+class CoreProjectOrchestrator:
+    def __init__(self, node_id: str = "DRAC-CORE-002"):
+        self.node_id = node_id
+        self.registry: Dict[str, Any] = {}
+        self.is_active = True
+        print(f"[SYSTEM INITIATED] Node {self.node_id} online and locking framework protocols.")
+
+    def register_subsystem(self, system_name: str, config: Dict[str, Any]) -> bool:
+        """Integrates a new project component into the unified framework."""
+        if system_name in self.registry:
+            print(f"[WARN] {system_name} already registered. Updating integrity layers.")
+        
+        self.registry[system_name] = {
+            "config": config,
+            "timestamp": time.time(),
+            "integrity_hash": self._generate_hash(config)
+        }
+        print(f"[SUCCESS] Subsystem '{system_name}' securely linked.")
+        return True
+
+    def _generate_hash(self, data: Any) -> str:
+        """Maintains structural integrity verification across data sets."""
+        serialized = json.dumps(data, sort_keys=True)
+        return hashlib.sha256(serialized.encode('utf-8')).hexdigest()
+
+    def sync_matrix(self) -> Dict[str, str]:
+        """Synchronizes and verifies the state of all active sub-modules."""
+        status_report = {}
+        for system, meta in self.registry.items():
+            current_hash = self._generate_hash(meta["config"])
+            if current_hash != meta["integrity_hash"]:
+                status_report[system] = "CRITICAL: INTEGRITY MISMATCH"
+            else:
+                status_report[system] = "VERIFIED & SECURE"
+        return status_report
+
+# Initialize Global Manifest
+if __name__ == "__main__":
+    orchestrator = CoreProjectOrchestrator()
+    
+    # Baseline Configurations for Saved Architectures
+    orchestrator.register_subsystem("SovereignSourceProtocol", {"layer": "DeFi_Core", "version": "3.5.0"})
+    orchestrator.register_subsystem("MyceliumNexus", {"environment": "Neglect_Tek_Static", "humidity_lock": True})
+    orchestrator.register_subsystem("AegisSmartMirror", {"diagnostic_mode": "Active", "refresh_rate": "60Hz"})
+    
+    # Run Verification
+    print("\n--- RUNNING SYSTEM INTEGRITY CHECK ---")
+    verification = orchestrator.sync_matrix()
+    for component, status in verification.items():
+        print(f" -> {component}: {status}")
+    print("--------------------------------------")
