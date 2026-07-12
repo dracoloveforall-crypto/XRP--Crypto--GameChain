@@ -1,0 +1,90 @@
+#####093<88>Readme.md////Https nooptingoutech
+
+
+a Specialized system designed to disable Technology Sites From Opting out inwhich prohibits Progress of work and time and effort [Highly Recommended]
+
+
+
+// ==UserScript==
+// @name         StrawberryFi_OneUI_DeonteaFi_Persistence_Engine
+// @namespace    https://github.com/dracoloveforall/StrawberryDevFi
+// @version      1.3.0
+// @description  Advanced app persistence & stay-awake engine driven by YRN VLAD III AI protocols.
+// @author       Deontea Keith McNeil (YRN VLAD III / Dracula III)
+// @match        *://*/*
+// @grant        none
+// @run-at       document-start
+// ==/UserScript==
+
+(function() {
+    'use strict';
+
+    // =========================================================================
+    // 1. CORE ARCHITECTURE ARCHETYPE BLOCK (StrawberryFi & DeonteaFi Ecosystem)
+    // =========================================================================
+    const CoreEngine = {
+        meta: {
+            name: "StrawberryFi x One UI x DeonteaFi Unified Client Framework",
+            orchestrator: "Manus / Motebook Core Intelligence",
+            enforcer: "YRN VLAD III AI Guardrail Protocol",
+            status: "ACTIVE_PERSISTENCE"
+        },
+        config: {
+            wakeLockInterval: 15000,
+            audioPingInterval: 25000,
+            domRefreshInterval: 10000,
+            stateSaveInterval: 5000
+        },
+        state: {
+            wakeLock: null,
+            audioCtx: null,
+            ledgerLogs: [],
+            lastKnownActivity: Date.now()
+        },
+
+        // Initialize all survival algorithms
+        init() {
+            console.log(`[%c${this.meta.enforcer}%c] Starting up persistence nodes...`, "color: #ff3333; font-weight: bold;", "color: default;");
+            
+            this.activateWakeLock();
+            this.activateAudioHacks();
+            this.activateOneUIThrottlingMitigation();
+            this.activateManusStateProtection();
+            this.interceptVisibilityAPIs();
+            
+            // Set up active continuous daemon loops
+            setInterval(() => this.maintainWakeLock(), this.config.wakeLockInterval);
+            setInterval(() => this.preventDOMHibernate(), this.config.domRefreshInterval);
+        },
+
+        // =========================================================================
+        // 2. HARDWARE WAKE LOCK ENGINE (StrawberryFi Ledger Integrity Protection)
+        // =========================================================================
+        async activateWakeLock() {
+            if ('wakeLock' in navigator) {
+                try {
+                    this.state.wakeLock = await navigator.wakeLock.request('screen');
+                    this.logLedgerEvent("WAKE_LOCK_ACQUIRED", "Screen sleep request suppressed successfully.");
+                    
+                    this.state.wakeLock.addEventListener('release', () => {
+                        this.logLedgerEvent("WAKE_LOCK_RELEASED", "System attempted release. Triggering re-acquisition.");
+                        this.maintainWakeLock();
+                    });
+                } catch (err) {
+                    this.logLedgerEvent("WAKE_LOCK_ERROR", err.message);
+                }
+            } else {
+                this.logLedgerEvent("WAKE_LOCK_UNSUPPORTED", "API missing. Falling back to secondary audio engines.");
+            }
+        },
+
+        async maintainWakeLock() {
+            if (this.state.wakeLock !== null && this.state.wakeLock.released === false) return;
+            await this.activateWakeLock();
+        },
+
+        // =========================================================================
+        // 3. BACKGROUND AUDIO KEEPALIVE HACK (YRN VLAD III AI Enforcement)
+        // =========================================================================
+        activateAudioHacks() {
+
