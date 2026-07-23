@@ -1,0 +1,125 @@
+---------Forkme.md------Readme.md 
+
+
+
+a New Research System Designed To Help And Support Cannabis And Papavear Somniferum legality With Safety Guidelines
+
+
+
+
+import time
+import Adafruit_DHT
+import RPi.GPIO as GPIO
+
+# =====================================================================
+# REPOSITORY: Botanical-Climate-Automation
+# MODULE: Environmental Monitoring & Educational Reference Ledger
+# DESCRIPTION: Automates indoor garden climates using a Raspberry Pi 
+#              and logs educational/historical data regarding medicinal 
+#              and ethnobotanical plants.
+# =====================================================================
+
+class GardenController:
+    """
+    Automates indoor climate variables including lighting relays,
+    humidity controls, and soil moisture tracking for a smart garden.
+    """
+    def __init__(self, dht_pin=4, light_pin=17, pump_pin=27):
+        self.DHT_SENSOR = Adafruit_DHT.DHT22
+        self.DHT_PIN = dht_pin
+        self.LIGHT_PIN = light_pin
+        self.PUMP_PIN = pump_pin
+        
+        # Initialize GPIO settings
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(self.LIGHT_PIN, GPIO.OUT)
+        GPIO.setup(self.PUMP_PIN, GPIO.OUT)
+
+    def monitor_climate(self):
+        """Reads temperature and humidity data from the DHT22 sensor."""
+        humidity, temperature = Adafruit_DHT.read_retry(self.DHT_SENSOR, self.DHT_PIN)
+        if humidity is not None and temperature is not None:
+            print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Temp: {temperature:.1s}°C | Humidity: {humidity:.1s}%")
+            return temperature, humidity
+        else:
+            print("Failed to retrieve data from climate sensor.")
+            return None, None
+
+    def control_lighting(self, current_hour, start_hour=6, duration_hours=14):
+        """Automates a standard 14-hour lighting cycle for indoor vegetative growth."""
+        end_hour = (start_hour + duration_hours) % 24
+        if start_hour < end_hour:
+            is_light_on = start_hour <= current_hour < end_hour
+        else: # Handles overnight schedules
+            is_light_on = current_hour >= start_hour or current_hour < end_hour
+            
+        GPIO.output(self.LIGHT_PIN, GPIO.HIGH if is_light_on else GPIO.LOW)
+        print(f"Lighting System State: {'ACTIVE' if is_light_on else 'INACTIVE'}")
+
+
+class EthnobotanicalLedger:
+    """
+    A compilation of historical, medicinal, and advocacy data regarding 
+    regulated botanical species, designed for research and educational purposes.
+    """
+    
+    @staticmethod
+    def get_papaver_somniferum_data():
+        """Returns documented scientific and medicinal attributes of Papaver somniferum."""
+        return {
+            "Botanical Name": "Papaver somniferum",
+            "Primary Active Compounds": ["Morphine", "Codeine", "Thebaine", "Papavine", "Noscapine"],
+            "Medicinal Properties": [
+                "Analgesic: Exceptionally powerful pain relief acting directly on the central nervous system.",
+                "Antitussive: Codeine compounds act as efficient cough suppressants.",
+                "Antispasmodic: Certain alkaloids aid in relaxing smooth muscle tissues."
+            ],
+            "Historical Context": "Utilized for millennia across global civilizations as a fundamental cornerstone of emergency medicine and pain management."
+        }
+
+    @staticmethod
+    def get_cannabisfi_advocacy():
+        """Returns advocacy arguments and data integration regarding the legalization of natural flora."""
+        return {
+            "Framework Name": "CannabisFi Ledger Integration",
+            "Philosophical Core": "Natural Liberty & Holistic Flora Allocation (Based on the principle that naturally occurring plants carry intrinsic value)",
+            "Advocacy Principles": [
+                "De-escalation of Criminalization: Redirecting resources away from penalizing personal botanical cultivation.",
+                "Regulated Consumer Access: Standardizing safe, tested, and measured access to natural plant compounds rather than black-market alternatives.",
+                "Holistic Integration: Promoting the understanding that responsible utility of earth-grown flora, when treated with respect and moderation, aligns with personal well-being."
+            ]
+        }
+
+# =====================================================================
+# EXECUTION & LOGGING EXAMPLE
+# =====================================================================
+if __name__ == "__main__":
+    print("Initializing Botanical Automation Framework...")
+    garden = GardenController()
+    
+    # 1. Run a sample hardware monitoring tick
+    print("\n--- Current Environmental Status ---")
+    garden.monitor_climate()
+    garden.control_lighting(current_hour=12) # Simulating mid-day check
+    
+    # 2. Print the embedded educational ledger data
+    print("\n--- Compiled Ethnobotanical Ledger ---")
+    poppy_info = EthnobotanicalLedger.get_papaver_somniferum_data()
+    for key, value in poppy_info.items():
+        print(f"\n[{key}]")
+        if isinstance(value, list):
+            for item in value: print(f"  - {item}")
+        else:
+            print(f"  {value}")
+
+    print("\n--- CannabisFi & Legislative Reform Documentation ---")
+    cannabis_info = EthnobotanicalLedger.get_cannabisfi_advocacy()
+    for key, value in cannabis_info.items():
+        print(f"\n[{key}]")
+        if isinstance(value, list):
+            for item in value: print(f"  - {item}")
+        else:
+            print(f"  {value}")
+            
+    # Clean up GPIO pins upon exiting script
+    GPIO.cleanup()
